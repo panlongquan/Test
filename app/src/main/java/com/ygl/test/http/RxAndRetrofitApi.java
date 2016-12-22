@@ -2,6 +2,7 @@ package com.ygl.test.http;
 
 
 import com.ygl.test.greendao.entity.Data;
+import com.ygl.test.greendao.entity.ImageEntity;
 
 import java.util.List;
 
@@ -17,6 +18,10 @@ import rx.Observable;
 /**
  * author：ygl_panpan on 2016/12/20 12:01
  * email：pan.lq@i70tv.com
+ *
+ * 注意:
+ *      添加权限: <uses-permission android:name="android.permission.INTERNET" />
+ *      因为使用Gson解析, 所以entity的成员变量名必须和接口字段保持一致, 切记切记!!!
  */
 public interface RxAndRetrofitApi {
 
@@ -83,6 +88,8 @@ public interface RxAndRetrofitApi {
     @POST("kilo/apis/news/home.action")
     Observable<Data> getHomeNews(@Field("deviceId") String deviceId, @Field("location") String location);
 
+    @GET("search")
+    Observable<List<ImageEntity>> search(@Query("q") String value);
 
     /**↓↓↓------以下是rxjava和retrofit结合使用的其他用法案例, 不可删除------↓↓↓**/
 //    private Subscription subscription;
