@@ -20,9 +20,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ygl.test.fragment.LoginFragment;
 import com.ygl.test.fragment.MainFragment;
-import com.ygl.test.fragment.SnackbarFragment;
-import com.ygl.test.fragment.TextInputFragment;
+import com.ygl.test.fragment.TabFragment;
 import com.ygl.test.inter.OnFragmentInteractionListener;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener{
@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                     case R.id.navigation_item_main:
                         switchToMain();
                         break;
-                    case R.id.navigation_item_tl:
-                        switchToExample();
+                    case R.id.navigation_item_login:
+                        switchToLogin();
                         break;
-                    case R.id.navigation_item_snackbar:
-                        switchToBlog();
+                    case R.id.navigation_item_tab:
+                        switchToTab();
                         break;
                 }
                 item.setChecked(true);
@@ -109,17 +109,17 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     private void switchToMain() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new MainFragment()).commit();
-        toolbarTitle.setText("主页");
+        toolbarTitle.setText(getString(R.string.main));
     }
 
-    private void switchToExample() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new TextInputFragment()).commit();
-        toolbarTitle.setText("MD输入框");
+    private void switchToTab() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new TabFragment()).commit();
+        toolbarTitle.setText(getString(R.string.tab));
     }
 
-    private void switchToBlog() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new SnackbarFragment()).commit();
-        toolbarTitle.setText("Snackbar");
+    private void switchToLogin() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new LoginFragment()).commit();
+        toolbarTitle.setText(getString(R.string.login));
     }
 
     @Override
@@ -184,6 +184,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-        Toast.makeText(this.getApplicationContext(), "uri = "+uri, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getApplicationContext(), "测试, uri = "+uri, Toast.LENGTH_SHORT).show();
     }
 }

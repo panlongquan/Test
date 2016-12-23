@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.ygl.test.adapter.MainRecyclerAdapter;
 import com.ygl.test.greendao.entity.ImageEntity;
 import com.ygl.test.http.NetworkUtil;
 import com.ygl.test.inter.OnFragmentInteractionListener;
+import com.ygl.test.listener.RecyclerItemClickListener;
 
 import java.util.List;
 
@@ -27,7 +29,6 @@ import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
 
 public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String ARG_PARAM1 = "param1";
@@ -40,7 +41,7 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private RecyclerView recycler;
     private SwipeRefreshLayout swipeRefresh;
 
-    private MainRecyclerAdapter adapter = new MainRecyclerAdapter();
+    private MainRecyclerAdapter adapter = null;
     private static String[] qArr = new String[]{"可爱", "110", "在下", "装逼"};
     private static int index;
     protected Subscription subscription;
@@ -80,6 +81,8 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i("plq", "==============");
+        adapter = new MainRecyclerAdapter(getActivity());
         initView(view);
         initControl();
         initData();
@@ -92,6 +95,7 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void initControl() {
         recycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recycler.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), adapter.onItemClickListener));
         recycler.setAdapter(adapter);
         recycler.setOnScrollListener(new RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动
@@ -158,6 +162,9 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                     @Override
                     public void onNext(List<ImageEntity> list) {
+                        for (ImageEntity entity : list) {
+                            Log.i("plq", "url = "+entity.getImage_url());
+                        }
                         swipeRefresh.setRefreshing(false);
                         adapter.setList(list);
                         index++;

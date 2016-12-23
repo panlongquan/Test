@@ -19,6 +19,7 @@
             android:id="@+id/iv_item_main_recyc"
             android:layout_width="match_parent"
             android:layout_height="160dp"
+            android:transitionName="@string/transition_book_img"
             android:scaleType="fitCenter"/>
 
         <TextView

@@ -5,15 +5,15 @@
         <item
             android:id="@+id/navigation_item_main"
             android:icon="@mipmap/ic_stars_black_24dp"
-            android:title="主页" />
+            android:title="@string/main" />
         <item
-            android:id="@+id/navigation_item_tl"
+            android:id="@+id/navigation_item_login"
             android:icon="@mipmap/ic_brightness_7_black_24dp"
-            android:title="MD输入框" />
+            android:title="@string/login" />
         <item
-            android:id="@+id/navigation_item_snackbar"
+            android:id="@+id/navigation_item_tab"
             android:icon="@mipmap/ic_flare_black_24dp"
-            android:title="Snackbar" />
+            android:title="@string/tab" />
 
     </group>
 

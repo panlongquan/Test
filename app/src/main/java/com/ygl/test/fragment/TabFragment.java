@@ -4,7 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +16,19 @@ import android.view.ViewGroup;
 import com.ygl.test.R;
 import com.ygl.test.inter.OnFragmentInteractionListener;
 
-public class SnackbarFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class TabFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
-    public SnackbarFragment() {
-        // Required empty public constructor
-    }
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     /**
      * Use this factory method to create a new instance of
@@ -34,11 +36,10 @@ public class SnackbarFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SnackbarFragment.
+     * @return A new instance of fragment TabFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static SnackbarFragment newInstance(String param1, String param2) {
-        SnackbarFragment fragment = new SnackbarFragment();
+    public static TabFragment newInstance(String param1, String param2) {
+        TabFragment fragment = new TabFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,22 +59,32 @@ public class SnackbarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_snackbar, container, false);
+        return inflater.inflate(R.layout.fragment_tab, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.bt_snack_test).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onButtonPressed(Uri.parse("https://www.baidu.com"));
-            }
-        });
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+
+        setupViewPager(viewPager);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    private void setupViewPager(ViewPager viewPager) {
+        List<Fragment> mFragments = new ArrayList<>();
+        List<String> mFragmentTitles = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            mFragments.add(TestFragment.newInstance("tab"+i, ""));
+            mFragmentTitles.add("tab"+i);
+            tabLayout.addTab(tabLayout.newTab().setText("tab"+i));
+        }
+        tabLayout.setupWithViewPager(viewPager);
+
+        MyPagerAdapter adapter = new MyPagerAdapter(getChildFragmentManager(), mFragments, mFragmentTitles);
+        viewPager.setAdapter(adapter);
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -95,6 +106,32 @@ public class SnackbarFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    static class MyPagerAdapter extends FragmentPagerAdapter {
+        private List<Fragment> mFragments = new ArrayList<>();
+        private List<String> mFragmentTitles = new ArrayList<>();
+
+        public MyPagerAdapter(FragmentManager fm, List<Fragment> mFragments, List<String> mFragmentTitles) {
+            super(fm);
+            this.mFragments = mFragments;
+            this.mFragmentTitles = mFragmentTitles;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitles.get(position);
+        }
     }
 
 }
