@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ygl.test.activity.SimpleMovieRecorderActivity;
 import com.ygl.test.fragment.LoginFragment;
 import com.ygl.test.fragment.MainFragment;
 import com.ygl.test.fragment.TabFragment;
@@ -135,16 +136,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             }
         });
 
-//        test
-//        MenuItem search=menu.findItem(R.id.ab_search);
-//        search.collapseActionView();
-//        SearchView searchview=(SearchView) search.getActionView();
-//        searchview.setIconifiedByDefault(false);
-//        SearchManager mSearchManager=(SearchManager)getSystemService(Context.SEARCH_SERVICE);
-//        SearchableInfo info=mSearchManager.getSearchableInfo(getComponentName());
-//        searchview.setSearchableInfo(info); //需要在Xml文件加下建立searchable.xml,搜索框配置文件
-
-
         // 分享,导入v7下的包
         MenuItem item=menu.findItem(R.id.action_share);
         ShareActionProvider sap= (ShareActionProvider) MenuItemCompat.getActionProvider(item);
@@ -175,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 Toast.makeText(this, "setting", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.simple_video:
-                Toast.makeText(this, "simple_video", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, SimpleMovieRecorderActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

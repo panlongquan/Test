@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -90,6 +91,10 @@ public class Utils {
         }
 
         return screenWidth;
+    }
+
+    public static float dipToPX(final Context ctx, float dip) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, ctx.getResources().getDisplayMetrics());
     }
 
     public static boolean isAndroid5() {

@@ -5,7 +5,5 @@ package com.ygl.test;
  * email：pan.lq@i70tv.com
  */
 public class Constants {
-
-
-
+    private static final String TAG = "plq";
 }

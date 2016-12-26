@@ -14,7 +14,6 @@
             android:id="@+id/navigation_item_tab"
             android:icon="@mipmap/ic_flare_black_24dp"
             android:title="@string/tab" />
-
     </group>
 
 </menu>
