@@ -34,6 +34,7 @@ import android.media.MediaPlayer.OnVideoSizeChangedListener;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -45,10 +46,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import java.io.IOException;
 import java.util.Map;
 
-//import android.widget.MediaController.MediaPlayerControl;
-
 public class FixedTextureVideoView extends TextureView implements CustomMediaController.MediaPlayerControl {// implements MediaController.MediaPlayerControl / CustomMediaController.MediaPlayerControl
-    private String TAG = "FixedTextureVideoView";
     private Uri mUri;
     private Map<String, String> mHeaders;
     /**
@@ -220,7 +218,7 @@ public class FixedTextureVideoView extends TextureView implements CustomMediaCon
         mHeaders = headers;
         mSeekWhenPrepared = 0;
         openVideo();
-//        requestLayout();
+        requestLayout();
     }
 
     /**
@@ -377,8 +375,6 @@ public class FixedTextureVideoView extends TextureView implements CustomMediaCon
                 mCurrentState != STATE_IDLE &&
                 mCurrentState != STATE_PREPARING);
     }
-
-
 
     /**********************以下是所有设置监听方法**************************/
     /**
@@ -666,33 +662,13 @@ public class FixedTextureVideoView extends TextureView implements CustomMediaCon
         return super.onTrackballEvent(ev);
     }
 
-//    public void setMediaController(CustomMediaController controller) {
-//        if (mMediaController != null) {
-//            mMediaController.hide();
-//        }
-//        mMediaController = controller;
-//        attachMediaController();
-//    }
-
     private void attachMediaController() {
-//        if (mMediaPlayer != null && mMediaController != null) {
-//            mMediaController.setMediaPlayer(this);
-//
-//            View anchorView = this.getParent() instanceof View ?
-//                    (View)this.getParent() : this;
-//
-//            mMediaController.setAnchorView(anchorView);
-//            mMediaController.setEnabled(isInPlaybackState());
-//        }
-
         if (mMediaPlayer != null){
-//            CustomMediaController controller
             if (com.ygl.utilslib.TextUtils.isEmpty(mThumbnailUrl)){
                 mMediaController = new CustomMediaController(mContext, fixedWidth, fixedHeight, thumbnailBit, null);
             } else {
                 mMediaController = new CustomMediaController(mContext, fixedWidth, fixedHeight, null, mThumbnailUrl);
             }
-
             mMediaController.hide();
             mMediaController.setMediaPlayer(this);
 

@@ -25,7 +25,6 @@ import java.util.HashMap;
  */
 public class SimpleFixedTextureVideoView extends RelativeLayout {
     private static final int SUCCESS_BITMAP = 111;
-    private static final String TAG = "SimpleFixedTextureVideo";
 
     private Context context;
     private FixedTextureVideoView videoView;
@@ -40,7 +39,6 @@ public class SimpleFixedTextureVideoView extends RelativeLayout {
         public void handleMessage(Message msg) {
             if (msg.what == SUCCESS_BITMAP) {
                 Bitmap bit = (Bitmap) msg.obj;
-                Log.i(TAG, "handleMessage: bit = "+bit);
                 videoView.setFixedSize((int)displayWidth, (int)displayHeight, path, bit, true);
             }
         }
@@ -135,12 +133,13 @@ public class SimpleFixedTextureVideoView extends RelativeLayout {
     }
 
     public void setVideoData(float width, String videoUrl, String thumbnailUrl){
-        displayWidth = width;
+        if (width > 0){
+            displayWidth = width;
+        }
         path = videoUrl;
         this.thumbnailUrl = thumbnailUrl;
 
         displayHeight = displayWidth * SimpleMovieRecorderView.getScale();
-        Log.i(TAG, "onMeasure: displayWidth = "+displayWidth);
 
         RelativeLayout.LayoutParams rp = (RelativeLayout.LayoutParams) root.getLayoutParams();
         rp.width = (int) displayWidth;
@@ -151,7 +150,6 @@ public class SimpleFixedTextureVideoView extends RelativeLayout {
         p.width = (int) displayWidth;
         p.height = (int) displayHeight;
         videoView.setLayoutParams(p);
-
         if (!TextUtils.isEmpty(path)) {
             if (path.contains("http")) {
                 path = proxy.getProxyUrl(path);

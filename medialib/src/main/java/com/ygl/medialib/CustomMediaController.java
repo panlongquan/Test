@@ -110,11 +110,10 @@ public class CustomMediaController extends FrameLayout {
             }
         }
     };
-    private static final String TAG = "SimpleFixedTextureVideo";
+
     private View.OnClickListener mPauseListener = new View.OnClickListener() {
         public void onClick(View v) {
             if (v.getId() == R.id.ll_pause){
-                Log.i(TAG, "onClick: ");
                 hide();
                 prepared_hide();
                 if (isInit){
@@ -379,8 +378,9 @@ public class CustomMediaController extends FrameLayout {
      * 隐藏mediaController
      */
     public void hide() {
-        if (mAnchor == null)
+        if (mAnchor == null){
             return;
+        }
 
         isLoading = false;
         isCompletion = false;
@@ -586,6 +586,7 @@ public class CustomMediaController extends FrameLayout {
      * 完成状态的显示
      */
     public void completion_show(){
+        mHandler.removeMessages(FADE_OUT);// 避免有延迟消息再次调用hide()方法
         isCompletion = true;
         if (mRoot != null){
             mRoot.setVisibility(View.VISIBLE);
