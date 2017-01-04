@@ -32,6 +32,7 @@ public class SimpleMovieRecorderActivity extends AppCompatActivity {
                 case HANDLE_VIDEO_FINISH:
                     String path = (String) msg.obj;
                     Log.i("plq", "path = "+path);// eg: path="/storage/emulated/0/SampleVideo/video/1482737980056.mp4"
+                    startActivity(SimpleFixedTextureVideoActivity.createInstance(SimpleMovieRecorderActivity.this, path));
                     break;
             }
         }

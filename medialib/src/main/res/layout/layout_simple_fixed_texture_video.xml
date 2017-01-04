@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.ygl.medialib.FixedTextureVideoView
+        android:id="@+id/videoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <!--<com.example.wood.samplevideo.ui.TransformMatrixView-->
+        <!--android:id="@+id/transform_image"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/iv"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:visibility="gone"-->
+        <!--android:background="#f00"-->
+        <!--/>-->
+
+
+</RelativeLayout>
