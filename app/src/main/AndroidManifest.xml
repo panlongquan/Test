@@ -42,7 +42,8 @@
         </activity>
         <activity android:name=".activity.DetailActivity" />
         <activity android:name=".activity.SimpleMovieRecorderActivity" />
-        <activity android:name=".activity.SimpleFixedTextureVideoActivity"></activity>
+        <activity android:name=".activity.SimpleFixedTextureVideoActivity" />
+        <activity android:name=".activity.VideoListActivity"></activity>
     </application>
 
 </manifest>
